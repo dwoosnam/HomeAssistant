@@ -319,22 +319,8 @@ script:
       name: Alternate Assistant Voice
       description: Alternate voice to use if the TTS default is not desireable.
       selector:
-        select:
-          options:
-            - label: Amy (UK)
-              value: Amy
-            - label: Brian (UK)
-              value: Brian
-            - label: Emma (UK)
-              value: Emma
-            - label: Geraint (CYM)
-              value: Geraint
-            - label: Matthew (US)
-              value: Matthew
-            - label: Joanna (US)
-              value: Joanna
-            - label: Random
-              value: Random
+        state:
+          entity_id: input_select.tts_default_voice
     speed:
       name: Alternate Assistant Speed
       description: Alternate speed selection if the default is not suitable. (100% is normal)
