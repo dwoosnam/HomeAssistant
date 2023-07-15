@@ -1,0 +1,492 @@
+sensor:
+  - platform: template
+    sensors:
+      tts_greeting:
+        friendly_name: TTS Greeting
+        unique_id: tts_greeting
+        icon_template: mdi:bullhorn
+        value_template: >
+          {% set day = now().strftime('%A') %}
+          {% if now().strftime('%H')|int < 12%}
+              {% set tod = [ 'Morning', 'Mornin\'' ] | random %}
+          {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 18 %}
+              {% set tod = 'Afternoon' %}
+          {% else %}
+              {% set tod = [ 'Evening', 'Evenin' ] | random %}
+          {% endif %}
+          {% if now().strftime('%d%m') == '2512' %}
+            {{ states('sensor.tts_greeting_christmas') }}
+          {% elif now().strftime('%d%m') == '3110' %}
+            {{ states('sensor.tts_greeting_halloween') }}
+          {% elif now().strftime('%d%m') == '0101' %}
+            {{ states('sensor.tts_greeting_new_year') }}
+          {% else %}
+            {{ [
+                tod,
+                '<emphasis level="reduced">Good</emphasis>' ~tod~ '.',
+                'Hello.',
+                'Hello there.',
+                'Hi.',
+                'Hi there.',
+                'Happy ' ~day~ '.',
+                'Good day to you.',
+                'Greetings. ',
+                'Greetings of the ' ~tod~ ' to you.',
+                'How do you do?',
+                tod~ '. ',
+                'Ahoy there.',
+                'Lovely ' ~tod~ ' isn\'t it?',
+                'Salutations. '
+                ] | random }}
+          {% endif %}
+
+      tts_interruption:
+        friendly_name: TTS Interruption
+        unique_id: tts_interruption
+        icon_template: mdi:bullhorn
+        value_template: >
+          {% set day = now().strftime('%A') %}
+          {{ [
+            'Pardon me, but ',
+            'Excuse me, but ',
+            'I beg your pardon, but ',
+            'I do not mean to intrude, but ',
+            'I am sorry to interrupt, but ',
+            'I don\'t mean to barge in, but ',
+            'I don\'t mean to disrupt your ' ~day~ ', but ',
+            'Please excuse me, but ',
+            'I hope you don\'t mind me interrupting, but ',
+            'I\'m sure you\'re very busy, but ',
+            'I have some new information. ',
+            'I wish to interrupt briefly. ',
+            'Might I disturb you quickly? ',
+            'I wanted to take a moment of your time to let you know that ',
+            'I just wanted to let you know that ',
+            'I wanted to inform you that ',
+            'How rude of me to disturb your ' ~day~ ', anyway, ',
+            'I thought I\'d let you know that ',
+            'This seemed like a reasonable time to let you know that '
+            ] | random }}
+
+      tts_alert:
+        friendly_name: TTS Alert
+        unique_id: tts_alert
+        icon_template: mdi:bullhorn
+        value_template: >
+          {{ [
+            'Emergency Alert!',
+            'We have a problem!',
+            'You might not like this, but',
+            'There is something that needs your attention.',
+            'Please try to keep calm, but',
+            'This one is a touch urgent.',
+            'I have an urgent update for you.'
+            ] | random }}
+
+      tts_confirmation:
+        friendly_name: TTS Confirmation
+        unique_id: tts_confirmation
+        icon_template: mdi:bullhorn
+        value_template: >
+          {{ [
+            'Okay.', 
+            'If you insist.',
+            'I am afraid I can not do that,, I am kidding,',
+            'Leave it to me.',
+            'As you wish.',
+            'I am on it.',
+            'No Problem.',
+            'Will do.',
+            'I think I can handle that.',
+            'Working on it now.',
+            ', Oh, you were talking to me. Let me take care of that.'
+            'Why not. It is not like I ever sleep.',
+            'I am not even supposed to be here today. But whatever.',
+            'You did not say the magic word. , Oh forget it. I will take care of it.',
+            'Funny, I was just about to do that.',
+            ] | random }}
+          
+      tts_greeting_christmas:
+        friendly_name: TTS Greeting Christmas
+        unique_id: tts_greeting_christmas
+        icon_template: mdi:bullhorn
+        value_template: >
+          {% set unused = now().strftime('%S') %}
+          {% set day = now().strftime('%A') %}
+          {% if now().strftime('%H')|int < 12%}
+              {% set tod = [ 'Morning', 'Mornin\'' ] | random %}
+          {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 18 %}
+              {% set tod = 'Afternoon' %}
+          {% else %}
+              {% set tod = [ 'Evening', 'Evenin' ] | random %}
+          {% endif %}
+            {{ [
+              'Ho ho hello there.',
+              'Ho Ho Ho.',
+              'Merry ' ~day~ ' to you.',
+              'Seasons greetings.',
+              'What a lovely December ' ~tod~ '.',
+              'What a Christmassy ' ~day~ ' ' ~tod~ '.'
+              ] | random }}
+
+      tts_greeting_halloween:
+        friendly_name: TTS Greeting Halloween
+        unique_id: tts_greeting_halloween
+        icon_template: mdi:bullhorn
+        value_template: >
+          {% set unused = now().strftime('%S') %}
+          {% set day = now().strftime('%A') %}
+          {% if now().strftime('%H')|int < 12%}
+              {% set tod = [ 'Morning', 'Mornin\'' ] | random %}
+          {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 18 %}
+              {% set tod = 'Afternoon' %}
+          {% else %}
+              {% set tod = [ 'Evening', 'Evenin' ] | random %}
+          {% endif %}
+            {{ [
+              'Boo!',
+              'Greetings from the crypt.',
+              'Hello from the other side.',
+              'Trick or Treat?',
+              'Spooktacular greetings.',
+              'What a spooky ' ~tod~ '.',
+              'Well this is a scary ' ~day~ '.'
+              ] | random }}
+
+      tts_greeting_new_year:
+        friendly_name: TTS Greeting New Year
+        unique_id: tts_greeting_new_year
+        icon_template: mdi:bullhorn
+        value_template: >
+          {% set unused = now().strftime('%S') %}
+          {% set day = now().strftime('%A') %}
+          {% if now().strftime('%H')|int < 12%}
+              {% set tod = [ 'Morning', 'Mornin\'' ] | random %}
+          {% elif now().strftime('%H')|int >= 12 and now().strftime('%H')|int < 18 %}
+              {% set tod = 'Afternoon' %}
+          {% else %}
+              {% set tod = [ 'Evening', 'Evenin' ] | random %}
+          {% endif %}
+            {{ [
+              'Happy New Year to you.',
+              'New years greetings to you!',
+              'Happiest of new years to you.',
+              'It\'s a new year, and a new day, and I\'m feeling good.',
+              'Cheers to new beginnings',
+              'Out with the old, in with the new.'
+              ] | random }}
+
+input_select:
+  tts_default_voice:
+    name: TTS Default Voice
+    icon: mdi:microphone-message
+    options:
+      - Amy
+      - Brian
+      - Emma
+      - Geraint
+      - Matthew
+      - Joanna
+      - Kendra
+      - Nicole
+      - Russell
+      - Aditi
+      - Raveena
+      - Random
+
+  tts_manual_locations:
+    name: TTS Manual Locations
+    icon: mdi:microphone-message
+    options:
+      - LivingRoom
+      - ManRoom
+      - BedRoom
+      - Kitchen
+      - GirlsRoom
+      - Everywhere
+      - Upstairs
+      - Downstairs
+
+  tts_manual_quick_message:
+    name: TTS Manual Quick Message
+    icon: mdi:message
+    options:
+      - Dinner Time
+      - Bed Time
+      - Text Box
+
+input_number:
+  tts_default_speed:
+    name: TTS Default Speed
+    icon: mdi:microphone-message
+    mode: slider
+    unit_of_measurement: "%"
+    min: 10
+    max: 200
+    step: 5
+
+input_text:
+  tts_manual_text:
+    name: TTS Manual Text
+    max: 255
+    mode: text
+    initial: You are fantastic.
+
+input_boolean:
+  tts_audible_notifications:
+    name: TTS Audible Notifications
+    icon: mdi:bullhorn
+    initial: on
+
+  tts_manual_announcement:
+    name: TTS Manual Announcement
+    icon: mdi:bullhorn
+
+  tts_manual_greeting:
+    name: TTS Manual Greeting
+    icon: mdi:bullhorn
+
+  tts_manual_inturruption:
+    name: TTS Manual Interruption
+    icon: mdi:bullhorn
+
+  tts_manual_alert:
+    name: TTS Manual Alert
+    icon: mdi:bullhorn
+
+input_button:
+  tts_manual_send:
+    name: TTS Manual Send
+    icon: mdi:send
+
+script:
+  alias: "NOTIFY : TTS"
+  description: Send a TTS Notification to Amazon Echo Device
+  fields:
+    message:
+      name: Message
+      description: The content of the message that you want to be announced.
+      required: true
+      selector:
+        text:
+          type: text
+    where:
+      name: Where
+      description: Which Room/Device you want the announcement to be made.
+      required: true
+      selector:
+        select:
+          options:
+            - LivingRoom
+            - ManRoom
+            - BedRoom
+            - Kitchen
+            - GirlsRoom
+            - Everywhere
+            - Upstairs
+            - Downstairs
+    announcement:
+      name: Announcement
+      description: Add the announcement tone at the beginning of the message
+      required: true
+      selector:
+        boolean: null
+    greeting:
+      name: Random Greeting
+      description: >-
+        Generate a random greeting based on the time of the day. (eg. Good
+        Afternoon)
+      required: true
+      selector:
+        boolean: null
+    interruption:
+      name: Random Interruption
+      description: >-
+        Generate a random inturruption message before the actual message. (eg.
+        Sorry to disturb you)
+      required: true
+      selector:
+        boolean: null
+    issue:
+      name: Random Issue Announcement
+      description: >-
+        Generate a random Issue Announcement message before the actual message.
+        (eg. We have a problem!)
+      required: true
+      selector:
+        boolean: null
+    voice:
+      name: Alternate Assistant Voice
+      description: Alternate voice to use if the TTS default is not desireable.
+      selector:
+        select:
+          options:
+            - label: Amy (UK)
+              value: Amy
+            - label: Brian (UK)
+              value: Brian
+            - label: Emma (UK)
+              value: Emma
+            - label: Geraint (CYM)
+              value: Geraint
+            - label: Matthew (US)
+              value: Matthew
+            - label: Joanna (US)
+              value: Joanna
+            - label: Random
+              value: Random
+    speed:
+      name: Alternate Assistant Speed
+      description: Alternate speed selection if the default is not suitable. (100% is normal)
+      selector:
+        number:
+          min: 10
+          max: 200
+          step: 5
+          unit_of_measurement: "%"
+          mode: slider
+  sequence:
+    - condition: state
+      entity_id: input_boolean.tts_audible_notifications
+      state: "on"
+      alias: Confirm that "TTS Audible Notifications" is switched on.
+    - service: notify.alexa_media
+      data:
+        message: |-
+          {% if voice == null %}
+            <voice name="{{ states('input_select.tts_default_voice') }}">
+          {% elif voice == 'Random' %}
+            <voice name="{{ state_attr('input_select.tts_default_voice', 'options') | list | random }}">
+          {% else %}
+            <voice name="{{ voice }}">
+          {% endif %}
+          <amazon:auto-breaths>
+          {% if speed == null %}
+            <prosody rate="{{states('input_number.tts_default_speed') }}%">
+          {% else %}
+            <prosody rate="{{ speed }}%">
+          {% endif %}
+          {% if greeting == true %}
+            {% set greet = states('sensor.tts_greeting') %}
+          {% endif %}
+          {% if interruption == true %}
+            {% set interupt = states('sensor.tts_interruption') %}
+          {% endif %}
+          {% if issue == true %}
+            {% set issuez = states('sensor.tts_alert') %}
+          {% endif %}
+          "{{ greet }} {{ interupt }} {{ issuez }} {{ message }}" </prosody>
+          </amazon:auto-breaths>
+          </voice>
+        data:
+          type: |-
+            {% if announcement == true %}
+              announce
+            {% else %}
+              tts
+            {% endif %}
+        target: |-
+          {% if where in ['LivingRoom', 'Living Room', 'Lounge', 'living'] %}
+            media_player.living_sonos
+          {% elif where in ['ManRoom', 'Man Room', 'Office', 'office', 'Study'] %}
+            media_player.man_room
+          {% elif where in ['BedRoom', 'Master', 'Bed Room', 'bedroom'] %}
+            media_player.sonos_bedroom
+          {% elif where in ['Kitchen', 'kitchen', 'Dining Room'] %}
+            media_player.daniel_s_sonos_move
+          {% elif where in ['GirlsRoom', 'Girls Room', 'Girls'] %}
+            media_player.dot_girls_room
+          {% elif where in ['Everywhere'] %}
+            group.alexa_media_all
+          {% elif where in ['Upstairs'] %}
+            group.alexa_media_upstairs
+          {% elif where in ['Downstairs'] %}
+            group.alexa_media_downstairs
+          {% endif %}
+      alias: Call the Notify Service
+    - service: homeassistant.update_entity
+      target:
+        entity_id:
+          - sensor.tts_alert
+          - sensor.tts_confirmation
+          - sensor.tts_greeting
+          - sensor.tts_interruption
+          - sensor.tts_greeting_christmas
+          - sensor.tts_greeting_new_year
+          - sensor.tts_greeting_halloween
+      data: {}
+      alias: Update Random TTS Sensors
+  mode: single
+  icon: mdi:bullhorn
+
+automation:
+  alias: "TTS : Manual Input"
+  description: ""
+  trigger:
+    - platform: state
+      entity_id:
+        - input_button.tts_manual_send
+  condition: []
+  action:
+    - variables:
+        announce: |-
+          {% if is_state('input_boolean.tts_manual_announcement', 'on') %}
+            {% set bool_announce = true %}
+          {% else %}
+            {% set bool_announce = false %}
+          {% endif %} {{ bool_announce }}
+        greet: |-
+          {% if is_state('input_boolean.tts_manual_greeting', 'on') %}
+            {% set bool_greet = true %}
+          {% else %}
+            {% set bool_greet = false %}
+          {% endif %} {{ bool_greet }}
+        inturrupt: |-
+          {% if is_state('input_boolean.tts_manual_inturruption', 'on') %}
+            {% set bool_inturrupt = true %}
+          {% else %}
+            {% set bool_inturrupt = false %}
+          {% endif %} {{ bool_inturrupt }}
+        issues: |-
+          {% if is_state('input_boolean.tts_manual_alert', 'on') %}
+            {% set bool_issues = true %}
+          {% else %}
+            {% set bool_issues = false %}
+          {% endif %} {{ bool_issues }}
+        message_text: >-
+          {% if is_state('input_select.tts_manual_quick_message', 'Dinner Time')
+          %}
+            {{ [
+              'Dinner is currently being served',
+              'It\'s time for dinner',
+              'If you\'re hungry, come and get it!',
+              'Dinner dinner, dinner, dinner, dinner dinner',
+              'Head to the feeding troughs for food'
+              ] | random }}
+          {% elif is_state('input_select.tts_manual_quick_message', 'Bed Time') %}
+            {{ [
+              'I think that it might be a good idea to get ready for bed now. Please?',
+              'It\'s time for bed',
+              'Tiredness does not become you. Get ready for bed please.',
+              'I\'m tired, are you tired? We should definitely get ready for bed!',
+              'Please get ready for bed',
+              'Bed is a wonderful place where you can rest your face and all your dreams take place. Let\'s go there!'
+              ] | random }}
+          {% elif is_state('input_select.tts_manual_quick_message', 'Text Box') %}
+            {{ states('input_text.tts_manual_text') }}
+          {% endif %}
+    - service: script.notify_tts
+      data:
+        announcement: "{{ announce }}"
+        greeting: "{{ greet }}"
+        interruption: "{{ inturrupt }}"
+        issue: "{{ issues }}"
+        where: "{{ states('input_select.tts_manual_locations') }}"
+        message: "{{ message_text }}"
+        voice: Random
+    - service: input_text.set_value
+      data:
+        value: "{{ message_text }}"
+      target:
+        entity_id: input_text.tts_manual_text
+  mode: single
