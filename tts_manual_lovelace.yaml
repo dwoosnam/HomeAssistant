@@ -1,0 +1,80 @@
+type: vertical-stack
+cards:
+  - type: entities
+    title: Manual Text-to-Speech
+    entities:
+      - entity: input_text.tts_manual_text
+      - entity: input_select.tts_manual_quick_message
+      - entity: input_select.tts_manual_locations
+    show_header_toggle: false
+    style: |
+      ha-card {
+      border: none;
+      --ha-card-background: none;
+      }
+  - square: false
+    type: grid
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.tts_manual_announcement
+        layout: vertical
+        secondary_info: false
+        tap_action:
+          action: toggle
+        name: Announce
+        style: |
+          ha-card {
+          border: none;
+          --ha-card-background: none;
+          }
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.tts_manual_greeting
+        layout: vertical
+        secondary_info: false
+        tap_action:
+          action: toggle
+        name: Greeting
+        style: |
+          ha-card {
+          border: none;
+          --ha-card-background: none;
+          }
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.tts_manual_inturruption
+        layout: vertical
+        secondary_info: false
+        tap_action:
+          action: toggle
+        name: Interupt
+        style: |
+          ha-card {
+          border: none;
+          --ha-card-background: none;
+          dialog-backdrop-filter: blur(5px)
+          iron-overlay-backdrop-opacity: 1
+          iron-overlay-backdrop-background-color: rgba(0, 0, 0, 0.32)
+          }
+      - type: custom:mushroom-entity-card
+        entity: input_boolean.tts_manual_alert
+        layout: vertical
+        secondary_info: false
+        tap_action:
+          action: toggle
+        name: Issue
+        style: |
+          ha-card {
+          border: none;
+          --ha-card-background: none;
+          dialog-backdrop-filter: blur(5px)
+          iron-overlay-backdrop-opacity: 1
+          iron-overlay-backdrop-background-color: rgba(0, 0, 0, 0.32)
+          }
+      - type: custom:mushroom-entity-card
+        entity: input_button.tts_manual_send
+        layout: vertical
+        icon: mdi:send
+        secondary_info: false
+        tap_action:
+          action: toggle
+        name: Send
+    columns: 5
