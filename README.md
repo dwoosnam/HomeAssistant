@@ -12,6 +12,8 @@ This package includes:
  - Custom script to make calling the `notify.alexa_media` player service easier.
  - Automation to allow the manual sending of TTS notifications from the Lovelace dashboard.
 
+***You will need to edit the yaml configuration manually to compensate for media_player entities.***
+
 ## TTS Manual Lovelace Card
 The `tts_manual_lovelace.yaml` file should give you the lovelace dashboard to allow for manual input of TTS requests.
 You will require:
