@@ -9,7 +9,7 @@ This package includes:
 
  - Custom Sensor entities to allow for randomised TTS (seasonal) greeting, inturruption and alert messages.
  - Custom Input Select entities to allow for easier selection of Alexa TTS voices (English speaking only).
- - Custom script to make calling the `notify.alexa_media` player service easier.
+ - Custom script to make calling the `notify.alexa_media` player service easier from within your automations.
  - Automation to allow the manual sending of TTS notifications from the Lovelace dashboard.
 
 ***You will need to edit the yaml configuration manually to compensate for media_player entities.***
